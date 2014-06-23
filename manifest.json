@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+
+    "name": "Hackercut",
+    "description": "Browse Hacker News with your keyboard!",
+    "version": "0.1",
+
+    "content_scripts": [{
+        "matches": ["https://news.ycombinator.com/*"],
+        // "css": ["css/styles.css"],
+        "js": ["js/lib/jquery-1.11.1.min.js", "js/main.js"]
+    }],
+
+    "permissions": [
+        "https://news.ycombinator.com/"
+    ],
+    "browser_action": {
+        "default_icon": "images/icon.png"
+    }
+}
