@@ -1,0 +1,10 @@
+/* create an arrow that points right */
+div.arrow-right {
+	width: 0; 
+	height: 0; 
+	border-bottom: 4px solid transparent;  /* left arrow slant */
+	border-top: 4px solid transparent; /* right arrow slant */
+	border-left: 8px solid #18ba3b; /* bottom, add background color here */
+	font-size: 0;
+	line-height: 0;
+}
