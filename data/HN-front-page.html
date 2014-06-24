@@ -4,21 +4,24 @@
 <head>
     <link href="news.css?tR9XOg2pipEBMzdyep1Q" rel="stylesheet" type=
     "text/css">
+    <link href="../css/extension.css" rel="stylesheet" type="text/css">
     <link href="favicon.ico" rel="shortcut icon">
+    <script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/extension.js"></script>
     <script type="text/javascript">
-function byId(id) {
-    return document.getElementById(id);
+    function byId(id) {
+      return document.getElementById(id);
     }
     function vote(node) {
-    var v = node.id.split(/_/);   // {'up', '123'}
-    var item = v[1];
-    // hide arrows
-    byId('up_'   + item).style.visibility = 'hidden';
-    byId('down_' + item).style.visibility = 'hidden';
-    // ping server
-    var ping = new Image();
-    ping.src = node.href;
-    return false; // cancel browser nav
+      var v = node.id.split(/_/);   // {'up', '123'}
+      var item = v[1];
+      // hide arrows
+      byId('up_'   + item).style.visibility = 'hidden';
+      byId('down_' + item).style.visibility = 'hidden';
+      // ping server
+      var ping = new Image();
+      ping.src = node.href;
+      return false; // cancel browser nav
     } 
     </script>
 
@@ -62,6 +65,7 @@ function byId(id) {
             <td>
                 <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
+                        <td><div class="arrow-right"> </div></td>
                         <td align="right" class="title" valign="top">1.</td>
 
                         <td>
