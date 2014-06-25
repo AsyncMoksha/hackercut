@@ -10,7 +10,7 @@ div.arrow-right {
 }
 
 body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:first-of-type {
-	width: 3%;
+	width: 1%;
 }
 
 body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:nth-of-type(2) {
