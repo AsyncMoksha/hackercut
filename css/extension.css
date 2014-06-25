@@ -8,3 +8,19 @@ div.arrow-right {
 	font-size: 0;
 	line-height: 0;
 }
+
+body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:first-of-type {
+	width: 3%;
+}
+
+body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:nth-of-type(2) {
+	width: 2%;
+}
+
+body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:nth-of-type(3) {
+	width: 5%;
+}
+
+body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:last-of-type {
+	/*width: 75%;*/
+}
