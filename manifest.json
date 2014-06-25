@@ -7,8 +7,9 @@
 
     "content_scripts": [{
         "matches": ["https://news.ycombinator.com/*"],
-        "css": ["css/extension.css"],
-        "js": ["js/lib/jquery-1.11.1.min.js", "js/extension.js"]
+        "css": ["css/messi.min.css", "css/extension.css"],
+        "js": ["js/lib/jquery-1.11.1.min.js","js/lib/messi.min.js", "js/extension.js"],
+        "run_at": "document_start"
     }],
 
     "permissions": [

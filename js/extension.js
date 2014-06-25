@@ -95,22 +95,22 @@ $(document).ready(function() {
                 }
             break;
 
+            /* show help window */
+            case 191: // "/" key
+                // new Messi('Please provide your name', {
+                //       autoclose: 1000,
+                //       center: true,
+                //       modal: true,
+                //       width: '400px'                         
+                //  });
+                new Messi('This is a message with Messi.', {title: 'Title'});
+
+            break;
+
             default:
             break;
         }
 
-        // ABANDONED, reason: stopped hijacking enter key keydown event
-        // open link in background by simulating ctrl+click
-        // code: http://stackoverflow.com/questions/10812628/open-a-new-tab-in-the-background
-        function open_in_background(link){
-            var a = document.createElement("a");
-            a.href = link;
-            var evt = document.createEvent("MouseEvents");
-            //the tenth parameter of initMouseEvent sets ctrl key
-            evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,
-                                        true, false, false, true, 0, null);
-            a.dispatchEvent(evt);
-        }
 
         function move_arrow_to(index) {
             $('.arrow-right').remove();
@@ -123,6 +123,20 @@ $(document).ready(function() {
                 return $.text([this]) == index + '.';
             }).parent().find('td.title a').focus();
         }
+
+
+        // ABANDONED, reason: stopped hijacking enter key keydown event
+        // open link in background by simulating ctrl+click
+        // code: http://stackoverflow.com/questions/10812628/open-a-new-tab-in-the-background
+        // function open_in_background(link){
+        //     var a = document.createElement("a");
+        //     a.href = link;
+        //     var evt = document.createEvent("MouseEvents");
+        //     //the tenth parameter of initMouseEvent sets ctrl key
+        //     evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,
+        //                                 true, false, false, true, 0, null);
+        //     a.dispatchEvent(evt);
+        // }
 
     });
 
