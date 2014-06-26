@@ -1,11 +1,10 @@
 $(document).ready(function() {
     const HN_BASE_URL = "https://news.ycombinator.com";
+    const ITEMS_PER_PAGE = 30;
 
-    var index; // global arrow index
     var arrow_on = false;
-    var current_page_max_index = 30;
-
-    index = initial_index();
+    var index = get_initial_index_of_current_page(); // global arrow index
+    var current_page_max_index = get_current_page_max_index();
 
     // add additional td before index to make space for pointer
     for (var i = 1; i <= current_page_max_index; ++i) {
@@ -135,8 +134,16 @@ $(document).ready(function() {
         }).parent().find('td.title a').focus();
     }
 
-    function initial_index() {
-        return 1;
+    function get_initial_index_of_current_page() {
+        var index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:first-of-type').text();
+        index_string = index_string.replace('.', '');
+        var index = parseInt(index_string);
+        return index;
+    }
+
+    function get_current_page_max_index() {
+        var initial_index = get_initial_index_of_current_page();
+        return initial_index + (ITEMS_PER_PAGE - 1);
     }
 
     // ABANDONED, reason: stopped hijacking enter key keydown event
