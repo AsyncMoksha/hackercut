@@ -54,6 +54,8 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">h</span>:' + '</td><td>' + ' go to Hacker News front page' + '</td></tr>'
 
+    + '<tr><td>' + '<span class="left-side-instruction">l</span>:' + '</td><td>' + ' go to login page' + '</td></tr>'
+
     + '</table>' + '</div>';
 
     document.addEventListener('keydown', function(event) {
@@ -233,6 +235,9 @@ $(document).ready(function() {
                 window.location.href = "https://news.ycombinator.com/news";
                 break;
 
+            case 108:
+                window.location.href = "https://news.ycombinator.com/newslogin?whence=news";
+                break;
             default:
                 break;
         }
