@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">up/down arrow keys</span>:' + '</td><td>' + ' move arrow up/down' + '</td></tr>'
 
-    + '<tr><td>' + '<span class="left-side-instruction">ctrl + enter</span>:' + '</td><td>' + ' open selected item in a new tab' + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">ctrl(&#8984;) + enter</span>:' + '</td><td>' + ' open selected item in a new tab' + '</td></tr>'
 
     + '<tr><td>' + '<span class="left-side-instruction">right arrow key</span>:' + '</td><td>' + ' next page' + '</td></tr>'
 
@@ -51,6 +51,8 @@ $(document).ready(function() {
     + '<tr><td>' + '<span class="left-side-instruction">j</span>:' + '</td><td>' + ' go to "jobs" page' + '</td></tr>'
 
     + '<tr><td>' + '<span class="left-side-instruction">s</span>:' + '</td><td>' + ' go to "submit" page' + '</td></tr>'
+
+    + '<tr><td>' + '<span class="left-side-instruction">h</span>:' + '</td><td>' + ' go to Hacker News front page' + '</td></tr>'
 
     + '</table>' + '</div>';
 
@@ -224,6 +226,11 @@ $(document).ready(function() {
                 /* go to "submit" page */
             case 115: // "s" key
                 window.location.href = 'https://news.ycombinator.com/submit';
+                break;
+
+                /* go to front page */
+            case 104: // "h" key
+                window.location.href = "https://news.ycombinator.com/news";
                 break;
 
             default:
