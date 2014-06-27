@@ -24,3 +24,34 @@ body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:nth-of
 body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:last-of-type {
 	/*width: 75%;*/
 }
+
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: 400px;
+  max-width: 500px;
+  margin: 20px auto;
+  color: black;
+}
+
+.blank-row {
+    height: 10px !important; /* Overwrite any previous rules */
+    background-color: #FFFFFF;
+}
+
+.left-side-instruction {
+	color: #23A600;
+}
+
+#instruction-table tr td:first-of-type {
+	width: 40%;
+	text-align: right;
+
+}
+
+#instruction-table tr td:nth-of-type(2) {
+	width: auto;
+	text-align: left;
+}
+
