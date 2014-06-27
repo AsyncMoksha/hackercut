@@ -20,65 +20,45 @@ $(document).ready(function() {
     // shows right underneath title area
     $('td[colspan=2]').attr("colspan", 3);
 
-    var instructions = '<div class="white-popup">'  
-    + 'Keyboard shortcuts powered by <font color="#FF6600">Hackercut</font><br />' 
-    + '<hr>'
-    + '<table id="instruction-table">'
+    var instructions = '<div class="white-popup">' + 'Keyboard shortcuts powered by <font color="#FF6600">Hackercut</font><br />' + '<hr>' + '<table id="instruction-table">'
 
-    + '<tr><td>'
-    + '<span class="left-side-instruction">tab</span>:'
-    + '</td><td>'
-    + ' turn on arrow navigation'
-    + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">tab</span>:' + '</td><td>' + ' turn on arrow navigation' + '</td></tr>'
 
-    + '<tr><td>'
-    + '<span class="left-side-instruction">up/down arrow keys</span>:'
-    + '</td><td>'
-    + ' move arrow up/down'
-    + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">up/down arrow keys</span>:' + '</td><td>' + ' move arrow up/down' + '</td></tr>'
 
-    + '<tr><td>'
-    + '<span class="left-side-instruction">ctrl + enter</span>:'
-    + '</td><td>'
-    + ' open selected item in a new tab'
-    + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">ctrl + enter</span>:' + '</td><td>' + ' open selected item in a new tab' + '</td></tr>'
 
-    + '<tr><td>'
-    + '<span class="left-side-instruction">right arrow key</span>:'
-    + '</td><td>'
-    + ' next page'
-    + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">right arrow key</span>:' + '</td><td>' + ' next page' + '</td></tr>'
 
-    + '<tr><td>'
-    + '<span class="left-side-instruction">esc</span>:'
-    + '</td><td>'
-    + ' quit arrow navigation mode'
-    + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">esc</span>:' + '</td><td>' + ' quit arrow navigation mode' + '</td></tr>'
 
     + '<tr class="blank-row"></tr>'
 
-    + '<tr><td>'
-    + '<span class="left-side-instruction">v/u</span>:'
-    + '</td><td>'
-    + ' vote for current selection'
-    + '</td></tr>'    
+    + '<tr><td>' + '<span class="left-side-instruction">v/u</span>:' + '</td><td>' + ' vote for current selection' + '</td></tr>'
 
-    + '<tr><td>'
-    + '<span class="left-side-instruction">c</span>:'
-    + '</td><td>'
-    + ' select comment of current title'
-    + '</td></tr>'    
+    + '<tr><td>' + '<span class="left-side-instruction">c</span>:' + '</td><td>' + ' select comment of current title' + '</td></tr>'
 
-    + '<tr><td>'
-    + '<span class="left-side-instruction">a</span>:'
-    + '</td><td>'
-    + ' select author of current title'
-    + '</td></tr>'    
+    + '<tr><td>' + '<span class="left-side-instruction">a</span>:' + '</td><td>' + ' select author of current title' + '</td></tr>'
 
-    + '</table>'
-    + '</div>';
+    + '<tr class="blank-row"></tr>'
+
+    + '<tr><td>' + '<span class="left-side-instruction">n</span>:' + '</td><td>' + ' go to "newest" page' + '</td></tr>'
+
+    + '<tr><td>' + '<span class="left-side-instruction">m</span>:' + '</td><td>' + ' go to "comments" page' + '</td></tr>'
+
+    + '<tr><td>' + '<span class="left-side-instruction">k</span>:' + '</td><td>' + ' go to "ask" page' + '</td></tr>'
+
+    + '<tr><td>' + '<span class="left-side-instruction">j</span>:' + '</td><td>' + ' go to "jobs" page' + '</td></tr>'
+
+    + '<tr><td>' + '<span class="left-side-instruction">s</span>:' + '</td><td>' + ' go to "submit" page' + '</td></tr>'
+
+    + '</table>' + '</div>';
 
     document.addEventListener('keydown', function(event) {
+        if ($(event.target).is("input")) {
+            return true;
+        }
+
         switch (event.keyCode) {
             /* start arrow mode */
             case 9: // tab key pressed
@@ -123,8 +103,13 @@ $(document).ready(function() {
 
                 // remove focus of author
                 $("td").filter(function() {
-                        return $.text([this]) == index + '.';
-                }).parent().next().find("td:nth-of-type(2) a:first-of-type").blur()
+                    return $.text([this]) == index + '.';
+                }).parent().next().find("td:nth-of-type(2) a:first-of-type").blur();
+
+                // remove focus of comment
+                $("td").filter(function() {
+                    return $.text([this]) == index + '.';
+                }).parent().next().find("td:nth-of-type(2) a:nth-of-type(2)").blur();
                 break;
 
                 /* next page */
@@ -148,6 +133,10 @@ $(document).ready(function() {
     });
 
     document.addEventListener('keypress', function(event) {
+        if ($(event.target).is("input")) {
+            return true;
+        }
+
         switch (event.keyCode) {
             /* go to first entry */
             case 49: // key "1"
@@ -156,8 +145,8 @@ $(document).ready(function() {
                     move_arrow_to(index);
                 }
                 break;
-                
-            /* upvote */
+
+                /* upvote */
             case 118: // "v" key
             case 117: // "u" key
                 if (arrow_on) {
@@ -176,44 +165,35 @@ $(document).ready(function() {
                 }
                 break;
 
-            /* current author */
+                /* current author */
             case 97: // "a" key
-                if(arrow_on) {
+                if (arrow_on) {
                     var author_node = $("td").filter(function() {
                         return $.text([this]) == index + '.';
                     }).parent().next().find("td:nth-of-type(2) a:first-of-type");
 
                     author_node.focus();
                 }
-            break;
+                break;
 
-            /* current comment */
+                /* current comment */
             case 99: // "c" key
-                if(arrow_on) {
+                if (arrow_on) {
                     var comment_node = $("td").filter(function() {
                         return $.text([this]) == index + '.';
                     }).parent().next().find("td:nth-of-type(2) a:nth-of-type(2)");
 
-                    comment_node.focus();   
+                    comment_node.focus();
                 }
-            break;
+                break;
 
-            /* show help window */
+                /* show help window */
             case 47: // "/" key
-                // new Messi('Please provide your name', {
-                //       autoclose: 1000,
-                //       center: true,
-                //       modal: true,
-                //       width: '400px'                         
-                //  });
-                // new Messi('This is a message with Messi.', {
-                //     title: 'Title'
-                // });
                 $.magnificPopup.open({
                     items: [{
-                        src:instructions,
+                        src: instructions,
                         type: "inline",
-                        // modal: false,
+                        modal: false,
                         showCloseBtn: false,
                         enableEscapeKey: true,
                         closeOnBgClick: true
@@ -221,8 +201,33 @@ $(document).ready(function() {
                 });
                 break;
 
+                /* go to "new" page */
+            case 110: // "n" key
+                window.location.href = 'https://news.ycombinator.com/newest';
+                break;
+
+                /* go to "comments" page */
+            case 109: // "m" key
+                window.location.href = 'https://news.ycombinator.com/newcomments';
+                break;
+
+                /* go to "ask" page */
+            case 107: // "k" key
+                window.location.href = 'https://news.ycombinator.com/ask';
+                break;
+
+                /* go to "jobs" page */
+            case 106: // "j" key
+                window.location.href = 'https://news.ycombinator.com/jobs';
+                break;
+
+                /* go to "submit" page */
+            case 115: // "s" key
+                window.location.href = 'https://news.ycombinator.com/submit';
+                break;
+
             default:
-            break;
+                break;
         }
     });
 
@@ -241,9 +246,9 @@ $(document).ready(function() {
 
     function get_initial_index_of_current_page() {
         var index_string;
-        if(!additional_td_added) {
+        if (!additional_td_added) {
             index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:first-of-type').text();
-            
+
         } else {
             index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:nth-of-type(2)').text();
         }
