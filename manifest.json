@@ -8,14 +8,17 @@
     "content_scripts": [{
         "matches": ["https://news.ycombinator.com/*"],
         "css": ["css/messi.min.css", "css/extension.css"],
-        "js": ["js/lib/jquery-1.11.1.min.js","js/lib/messi.min.js", "js/extension.js"],
+        "js": ["js/lib/jquery-1.11.1.min.js", "js/lib/messi.min.js", "js/extension.js"],
         "run_at": "document_start"
     }],
 
     "permissions": [
         "https://news.ycombinator.com/"
     ],
-    "browser_action": {
-        "default_icon": "images/icon.png"
+    "page_action": {
+        "default_icon": {
+            "19": "images/19x19.png",
+            "38": "images/38x38.png"
+        }
     }
 }

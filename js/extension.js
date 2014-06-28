@@ -59,6 +59,7 @@ $(document).ready(function() {
     + '</table>' + '</div>';
 
     document.addEventListener('keydown', function(event) {
+        // avoid key conflicts in input fields
         if ($(event.target).is("input")) {
             return true;
         }
@@ -137,6 +138,7 @@ $(document).ready(function() {
     });
 
     document.addEventListener('keypress', function(event) {
+        // avoid key conflicts in input fields
         if ($(event.target).is("input")) {
             return true;
         }
