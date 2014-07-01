@@ -9,19 +9,19 @@ div.arrow-right {
 	line-height: 0;
 }
 
-body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:first-of-type {
+.main-table tr:nth-child(3n+1) td:first-of-type {
 	width: 1%;
 }
 
-body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:nth-of-type(2) {
+.main-table tr:nth-child(3n+1) td:nth-of-type(2) {
 	width: 1%;
 }
 
-body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:nth-of-type(3) {
+.main-table tr:nth-child(3n+1) td:nth-of-type(3) {
 	width: 2%;
 }
 
-body table:first-of-type tr:nth-of-type(3) td table tr:nth-child(3n+1) td:last-of-type {
+.main-table tr:nth-child(3n+1) td:last-of-type {
 	/*width: 75%;*/
 }
 

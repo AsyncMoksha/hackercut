@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    // doesn't work for "comments" and "jobs" pages at this point
+    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0) {
+        return;
+    }
+
     const HN_BASE_URL = "https://news.ycombinator.com";
     const ITEMS_PER_PAGE = 30;
 
@@ -6,6 +11,9 @@ $(document).ready(function() {
     var additional_td_added = false;
     var index = get_initial_index_of_current_page(); // global arrow index
     var current_page_max_index = get_current_page_max_index();
+
+    // add class in order for the layout in css
+    $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table');
 
     // add additional td before index to make space for pointer
     for (var i = 1; i <= current_page_max_index; ++i) {
