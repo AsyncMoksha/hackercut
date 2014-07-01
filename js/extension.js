@@ -1,34 +1,8 @@
 $(document).ready(function() {
-    // doesn't work for "comments" and "jobs" pages at this point
-    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0) {
-        return;
-    }
-
     const HN_BASE_URL = "https://news.ycombinator.com";
     const ITEMS_PER_PAGE = 30;
 
-    var arrow_on = false;
-    var additional_td_added = false;
-    var index = get_initial_index_of_current_page(); // global arrow index
-    var current_page_max_index = get_current_page_max_index();
-
-    // add class in order for the layout in css
-    $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table');
-
-    // add additional td before index to make space for pointer
-    for (var i = 1; i <= current_page_max_index; ++i) {
-        $("td").filter(function() {
-            return $.text([this]) == i + '.';
-        }).before('<td></td>');
-    }
-    additional_td_added = true;
-
-    // adjust the colspan of the space filler to compensate 
-    // the additional td so that the summary area
-    // shows right underneath title area
-    $('td[colspan=2]').attr("colspan", 3);
-
-    var instructions = '<div class="white-popup">' + 'Keyboard shortcuts powered by <font color="#FF6600">Hackercut</font><br />' + '<hr>' + '<table id="instruction-table">'
+    const instructions = '<div class="white-popup">' + 'Keyboard shortcuts powered by <font color="#FF6600">Hackercut</font><br />' + '<hr>' + '<table id="instruction-table">'
 
     + '<tr><td>' + '<span class="left-side-instruction">tab</span>:' + '</td><td>' + ' turn on arrow navigation' + '</td></tr>'
 
@@ -66,7 +40,38 @@ $(document).ready(function() {
 
     + '</table>' + '</div>';
 
-    document.addEventListener('keydown', function(event) {
+    // doesn't work for "comments" and "jobs" pages at this point
+    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0) {
+        document.addEventListener('keypress', key_press_handler);
+        return;
+    }
+
+    var arrow_on = false;
+    var additional_td_added = false;
+    var index = get_initial_index_of_current_page(); // global arrow index
+    var current_page_max_index = get_current_page_max_index();
+
+    // add class in order for the layout in css
+    $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table');
+
+    // add additional td before index to make space for pointer
+    for (var i = 1; i <= current_page_max_index; ++i) {
+        $("td").filter(function() {
+            return $.text([this]) == i + '.';
+        }).before('<td></td>');
+    }
+    additional_td_added = true;
+
+    // adjust the colspan of the space filler to compensate 
+    // the additional td so that the summary area
+    // shows right underneath title area
+    $('td[colspan=2]').attr("colspan", 3);
+
+    document.addEventListener('keydown', key_down_handler);
+
+    document.addEventListener('keypress', key_press_handler);
+
+    function key_down_handler(event) {
         // avoid key conflicts in input fields
         if ($(event.target).is("input")) {
             return true;
@@ -143,9 +148,9 @@ $(document).ready(function() {
             default:
                 break;
         }
-    });
+    }
 
-    document.addEventListener('keypress', function(event) {
+    function key_press_handler(event) {
         // avoid key conflicts in input fields
         if ($(event.target).is("input")) {
             return true;
@@ -251,7 +256,7 @@ $(document).ready(function() {
             default:
                 break;
         }
-    });
+    }
 
 
     function move_arrow_to(index) {
