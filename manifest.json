@@ -4,6 +4,10 @@
     "name": "Hackercut",
     "description": "Browse Hacker News with your keyboard!",
     "version": "0.1",
+    "background" : {
+        "scripts": ["js/background.js"],
+        "persistent": false
+    },
 
     "content_scripts": [{
         "matches": ["https://news.ycombinator.com/*"],
@@ -12,13 +16,17 @@
         "run_at": "document_start"
     }],
 
+    "icons" : {
+        "16": "images/19x19.png",
+        "48": "images/38x38.png"
+    },
+
     "permissions": [
-        "https://news.ycombinator.com/"
+        "https://news.ycombinator.com/",
+        "declarativeContent"
     ],
+    
     "page_action": {
-        "default_icon": {
-            "19": "images/19x19.png",
-            "38": "images/38x38.png"
-        }
+        "default_icon": "images/19x19.png"
     }
 }
