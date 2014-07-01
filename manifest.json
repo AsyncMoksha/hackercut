@@ -17,10 +17,8 @@
     }],
 
     "icons" : {
-        "16": "images/16.png",
-        "32": "images/32.png",
-        "48": "images/48.png",
-        "128": "images/128.png"
+        "16": "images/Hackercut-16.png",
+        "128": "images/Hackercut-128.png"
     },
 
     "permissions": [
@@ -29,6 +27,6 @@
     ],
 
     "page_action": {
-        "default_icon": "images/16.png"
+        "default_icon": "images/Hackercut-128.png"
     }
 }
