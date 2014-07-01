@@ -2,7 +2,7 @@ $(document).ready(function() {
     const HN_BASE_URL = "https://news.ycombinator.com";
     const ITEMS_PER_PAGE = 30;
 
-    const instructions = '<div class="white-popup">' + 'Keyboard shortcuts powered by <font color="#FF6600">Hackercut</font><br />' + '<hr>' + '<table id="instruction-table">'
+    var instructions = '<div class="white-popup">' + 'Keyboard shortcuts powered by <font color="#FF6600">Hackercut</font><br />' + '<hr>' + '<table id="instruction-table">'
 
     + '<tr><td>' + '<span class="left-side-instruction">tab</span>:' + '</td><td>' + ' turn on arrow navigation' + '</td></tr>'
 
@@ -26,11 +26,11 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">n</span>:' + '</td><td>' + ' go to "newest" page' + '</td></tr>'
 
-    + '<tr><td>' + '<span class="left-side-instruction">m</span>:' + '</td><td>' + ' go to "comments" page' + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">m</span>:' + '</td><td>' + ' go to "comments" page*' + '</td></tr>'
 
     + '<tr><td>' + '<span class="left-side-instruction">k</span>:' + '</td><td>' + ' go to "ask" page' + '</td></tr>'
 
-    + '<tr><td>' + '<span class="left-side-instruction">j</span>:' + '</td><td>' + ' go to "jobs" page' + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">j</span>:' + '</td><td>' + ' go to "jobs" page*' + '</td></tr>'
 
     + '<tr><td>' + '<span class="left-side-instruction">s</span>:' + '</td><td>' + ' go to "submit" page' + '</td></tr>'
 
@@ -38,7 +38,12 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">l</span>:' + '</td><td>' + ' go to login page' + '</td></tr>'
 
-    + '</table>' + '</div>';
+    + '</table>' 
+
+    + '<br />'
+    + '<div class="foot-note">*please note that arrow navigation does not work on "comments" and "jobs" pages at this moment.</div>'
+
+    + '</div>';
 
     // doesn't work for "comments" and "jobs" pages at this point
     if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0) {
@@ -169,18 +174,22 @@ $(document).ready(function() {
             case 118: // "v" key
             case 117: // "u" key
                 if (arrow_on) {
-                    // get a handle of the anchor
-                    var vote_node = $("td").filter(function() {
-                        return $.text([this]) == index + '.';
-                    }).parent().find('td:nth-of-type(3) a');
+                    if(is_logged_in()) {
+                        // get a handle of the anchor
+                        var vote_node = $("td").filter(function() {
+                            return $.text([this]) == index + '.';
+                        }).parent().find('td:nth-of-type(3) a');
 
-                    // hide the upvote arrow
-                    $("td").filter(function() {
-                        return $.text([this]) == index + '.';
-                    }).parent().find('.votearrow').hide();
+                        // hide the upvote arrow
+                        $("td").filter(function() {
+                            return $.text([this]) == index + '.';
+                        }).parent().find('.votearrow').hide();
 
-                    var ping = new Image();
-                    ping.src = vote_node.attr('href');
+                        var ping = new Image();
+                        ping.src = vote_node.attr('href');
+                    } else {
+                        window.location.href = "https://news.ycombinator.com/newslogin?whence=news";
+                    }
                 }
                 break;
 
@@ -258,6 +267,14 @@ $(document).ready(function() {
         }
     }
 
+    function is_logged_in() {
+        var upper_right_text = $('body table:first-of-type tr:first-of-type td:first-of-type table:first-of-type tr:first-of-type td:last-of-type span:first-of-type a:last-of-type').html();
+        if('login' == upper_right_text) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     function move_arrow_to(index) {
         $('.arrow-right').remove();
