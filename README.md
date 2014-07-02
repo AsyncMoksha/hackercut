@@ -14,7 +14,7 @@ After installing the extension, while on Hacker News website, press <span style=
 Arrow Navigation is the most powerful feature of this extension, you can go through the story links using just your up/right arrow keys and open/vote up/view author/view comments as you like.
 
 Press <span style="color:#23A600">"Tab"</span> to turn on arrow navigation mode, you should see a green arrow to the left of the first link:
-![arrow](https:// "Arrow Navigation")
+![arrow](https://raw.githubusercontent.com/zinanxing/Hackercut/master/screenshots/arrow.png "Arrow Navigation")
 
 You can move the arrow up and down using your arrow keys, then you may choose to:
 
@@ -25,7 +25,7 @@ key press | function
 <span style="color:#23A600">a</span> | select its submitter(which you can then use ctrl+enter to open in new tab)
 <span style="color:#23A600">c</span> | select its comments
 
-![arrow](https:// "Select comments")
+![arrow](https://raw.githubusercontent.com/zinanxing/Hackercut/master/screenshots/comments.png "Select comments")
 
 And pressing "esc" key will turn off Arrow Navigation mode.
 
