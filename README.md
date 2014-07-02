@@ -1,7 +1,7 @@
 Hackercut
 =========
 
-**Hackercut**(**Hacker** News Short**cut**) is a Chrome extension that powers full keyboard navigation of [Hacker News](https://news.ycombinator.com).
+**Hackercut**(Hacker News Shortcut) is a Chrome extension that powers full keyboard navigation of [Hacker News](https://news.ycombinator.com).
 
 You can install this extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/hackercut/dmiimkldokblocpmleogaeohkbffnobo). 
 
