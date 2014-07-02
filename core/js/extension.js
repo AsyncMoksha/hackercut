@@ -38,16 +38,17 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">l</span>:' + '</td><td>' + ' go to login page' + '</td></tr>'
 
-    + '</table>' 
+    + '</table>'
 
-    + '<br />'
-    + '<div class="foot-note">*please note that arrow navigation does not work on "comments" and "jobs" pages at this moment.</div>'
+    + '<br />' + '<div class="foot-note">*please note that arrow navigation does not work on "comments" and "jobs" pages at this moment.</div>'
 
     + '</div>';
 
     // doesn't work for "comments" and "jobs" pages at this point
-    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0) {
+    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0 || document.URL.indexOf('/submitted') >= 0) {
         document.addEventListener('keypress', key_press_handler);
+        return;
+    } else if (document.URL.indexOf('/user?') >= 0 || document.URL.indexOf('/changepw') >= 0) {
         return;
     }
 
@@ -174,7 +175,7 @@ $(document).ready(function() {
             case 118: // "v" key
             case 117: // "u" key
                 if (arrow_on) {
-                    if(is_logged_in()) {
+                    if (is_logged_in()) {
                         // get a handle of the anchor
                         var vote_node = $("td").filter(function() {
                             return $.text([this]) == index + '.';
@@ -269,7 +270,7 @@ $(document).ready(function() {
 
     function is_logged_in() {
         var upper_right_text = $('body table:first-of-type tr:first-of-type td:first-of-type table:first-of-type tr:first-of-type td:last-of-type span:first-of-type a:last-of-type').html();
-        if('login' == upper_right_text) {
+        if ('login' == upper_right_text) {
             return false;
         } else {
             return true;

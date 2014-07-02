@@ -1,11 +1,12 @@
 {
     "manifest_version": 2,
 
-    "name": "Hackercut",
+    "name": "Hacker News Shortcut",
+    "short_name": "Hackercut",
     "description": "Browse Hacker News with your keyboard!",
     "author": "Zinan Xing",
-    "version": "1.1",
-    "background" : {
+    "version": "1.2",
+    "background": {
         "scripts": ["js/background.js"],
         "persistent": false
     },
@@ -17,7 +18,7 @@
         "run_at": "document_start"
     }],
 
-    "icons" : {
+    "icons": {
         "16": "images/Hackercut-16.png",
         "48": "images/Hackercut-48.png",
         "128": "images/Hackercut-128.png"
