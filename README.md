@@ -45,8 +45,9 @@ key press | function
 <span style="color:#23A600">h</span> | Hacker News front page
 <span style="color:#23A600">l</span> | "login" page
 
-*arrow navigation does not work on "comments" and "jobs" pages at this moment.
-<br />
-<br />
-I hope you can better enjoy Hacker News with **Hackercut**.
+*arrow navigation does not work on "comments" and "jobs" pages at this moment.  
+<br />  
+<br />  
+
+I hope you can better enjoy Hacker News with <span style="color:#FF6600">**Hackercut**</span>.  
 
