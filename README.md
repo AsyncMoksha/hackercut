@@ -1,13 +1,15 @@
 Hackercut
 =========
 
-Hackercut is a Chrome extension that powers full keyboard navigation of [Hacker News](https://news.ycombinator.com).
+**Hackercut** is a Chrome extension that powers full keyboard navigation of [Hacker News](https://news.ycombinator.com).
 
 I've just finished the development of this extension and it's going to be released in Chrome Extension store. But in the mean time, you can still use it under [Developer Mode](https://developer.chrome.com/extensions/faq#faq-dev-01).
 
 After installing the extension, while on Hacker News website, press <span style="color:#23A600">"?"</span> key to bring up the instructions:
 
-![instructions](https://raw.githubusercontent.com/zinanxing/Hackercut/master/screenshots/instructions-zoom.png "Hackercut instructions")
+<p align="center">
+<img src="https://raw.githubusercontent.com/zinanxing/Hackercut/master/screenshots/instructions-zoom.png" alt="Hackercut Instructions">
+</p>
 
 
 ##Arrow Navigation
@@ -30,7 +32,7 @@ key press | function
 And pressing "esc" key will turn off Arrow Navigation mode.
 
 ##Page Switching
-Switching pages with Hackercut is just one key press away:
+Switching pages with **Hackercut** is just one key press away:
 
 key press | function
 --- | ---
@@ -45,5 +47,5 @@ key press | function
 
 *arrow navigation does not work on "comments" and "jobs" pages at this moment.
 
-I hope you can better enjoy Hacker News with <span style="color:#FF6600">Hackercut</span>.
+I hope you can better enjoy Hacker News with <span style="color:#FF6600">**Hackercut**</span>.
 
