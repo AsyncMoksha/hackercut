@@ -3,7 +3,7 @@
 
     "name": "Hackercut",
     "description": "Browse Hacker News with your keyboard!",
-    "version": "0.1",
+    "version": "1.0",
     "background" : {
         "scripts": ["js/background.js"],
         "persistent": false
@@ -18,6 +18,7 @@
 
     "icons" : {
         "16": "images/Hackercut-16.png",
+        "48": "images/Hackercut-48.png",
         "128": "images/Hackercut-128.png"
     },
 
