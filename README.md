@@ -48,5 +48,5 @@ key press | function
 *arrow navigation does not work on "comments" and "jobs" pages at this moment.
 <br />
 <br />
-I hope you can better enjoy Hacker News with <span style="color:#FF6600">**Hackercut**</span>.
+I hope you can better enjoy Hacker News with **Hackercut**.
 
