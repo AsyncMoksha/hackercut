@@ -48,7 +48,7 @@ $(document).ready(function() {
     if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0 || document.URL.indexOf('/submitted') >= 0) {
         document.addEventListener('keypress', key_press_handler);
         return;
-    } else if (document.URL.indexOf('/user?') >= 0 || document.URL.indexOf('/changepw') >= 0) {
+    } else if (document.URL.indexOf('/user?') >= 0 || document.URL.indexOf('/changepw') >= 0 || document.URL.indexOf('/item') >= 0) {
         return;
     }
 
