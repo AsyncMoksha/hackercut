@@ -1,5 +1,5 @@
-// TODO: change layout according to current_area
-// TODO: add "p" -> profile
+// + TODO: change layout according to current_area
+// + TODO: add "p" -> profile
 
 $(document).ready(function() {
     const HN_BASE_URL = "https://news.ycombinator.com";
@@ -31,6 +31,8 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">m</span>:' + '</td><td>' + ' go to "comments" page*' + '</td></tr>'
 
+    + '<tr><td>' + '<span class="left-side-instruction">w</span>:' + '</td><td>' + ' go to "show hn" page' + '</td></tr>'
+
     + '<tr><td>' + '<span class="left-side-instruction">k</span>:' + '</td><td>' + ' go to "ask" page' + '</td></tr>'
 
     + '<tr><td>' + '<span class="left-side-instruction">j</span>:' + '</td><td>' + ' go to "jobs" page*' + '</td></tr>'
@@ -39,9 +41,9 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">h</span>:' + '</td><td>' + ' go to Hacker News front page' + '</td></tr>'
 
-    + '<tr><td>' + '<span class="left-side-instruction">l</span>:' + '</td><td>' + ' go to login page' + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">p</span>:' + '</td><td>' + ' go to my profile page(after logged in)' + '</td></tr>'
 
-    + '<tr><td>' + '<span class="left-side-instruction">w</span>:' + '</td><td>' + ' go to "Show HN" page' + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">l</span>:' + '</td><td>' + ' go to login page' + '</td></tr>'
 
     + '</table>'
 
@@ -297,9 +299,18 @@ $(document).ready(function() {
                 window.location.href = "https://news.ycombinator.com/show";
                 break;
 
+            /* go to login page */
             case 108:
                 window.location.href = "https://news.ycombinator.com/newslogin?whence=news";
                 break;
+
+            /* go to my profile page */
+            case 112: // "p" key
+                var url_part = $('.pagetop').eq(1).find('a:first-of-type').attr('href');
+                var url_full = HN_BASE_URL + "/" + url_part;
+                window.location.href = url_full;
+            break;
+
             default:
                 break;
         }
