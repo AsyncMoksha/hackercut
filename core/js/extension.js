@@ -2,7 +2,7 @@ $(document).ready(function() {
     const HN_BASE_URL = "https://news.ycombinator.com";
     const ITEMS_PER_PAGE = 30;
 
-    var instructions = '<div class="white-popup">' + 'Keyboard shortcuts powered by <font color="#FF6600">Hackercut</font><br />' + '<hr>' + '<table id="instruction-table">'
+    const instructions = '<div class="white-popup">' + 'Keyboard shortcuts powered by <font color="#FF6600">Hackercut</font><br />' + '<hr>' + '<table id="instruction-table">'
 
     + '<tr><td>' + '<span class="left-side-instruction">tab</span>:' + '</td><td>' + ' turn on arrow navigation' + '</td></tr>'
 
@@ -45,6 +45,10 @@ $(document).ready(function() {
     + '<br />' + '<div class="foot-note">*please note that arrow navigation does not work on "comments" and "jobs" pages at this moment.</div>'
 
     + '</div>';
+
+    var current_area = get_current_area();
+
+    alert(current_area);
 
     // exclusion list
     if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0 || document.URL.indexOf('/item') >= 0 || document.URL.indexOf('/show') >= 0) {
@@ -314,6 +318,95 @@ $(document).ready(function() {
     function get_current_page_max_index() {
         var initial_index = get_initial_index_of_current_page();
         return initial_index + (ITEMS_PER_PAGE - 1);
+    }
+
+    // identify which area we are in
+    function get_current_area() {
+        var current_area = "";
+
+        // selection is white
+        /* covered areas:
+            new
+            threads
+            comments
+            show
+            ask
+            jobs
+        */
+        $('.pagetop a').each(function() {
+            if('rgb(255, 255, 255)' == $(this).css('color')) {
+                current_area = $(this).text();
+            }
+        });
+
+        /*  covered areas:
+            submissions
+            saved
+        */
+        $('.pagetop font').each(function() {
+            if('rgb(255, 255, 255)' == $(this).css('color')) {
+                if($(this).text().indexOf('submissions') >= 0) {
+                    current_area = "submissions";
+                } else {
+                    current_area = $(this).text();
+                }
+            }
+        });
+
+        debugger;
+
+        if("" == current_area) {
+            if(document.URL.indexOf('/item') >= 0) {
+                current_area = "comment";
+            } else if(document.URL.indexOf('/submit') >= 0) {
+                current_area = "submit";
+            } else if(document.URL.indexOf('/changepw') >= 0) {
+                current_area = "changepw";
+            } else if(document.URL.indexOf('/user') >= 0) {
+                current_area = "user";
+            } else if(document.URL.indexOf('/edit') >= 0) {
+                current_area = "edit";
+            } else if(document.URL.indexOf('/reply') >= 0) {
+                current_area = "reply";
+            } else if(document.URL.indexOf('/formatdoc') >= 0) {
+                current_area = "formatdoc"; // "help" page for "about" field in settings
+            }
+            //below are pages from bottom links
+            else if(document.URL.indexOf('/newsguidelines') >= 0) {
+                current_area = "newsguidelines";
+            } else if(document.URL.indexOf('/newsfaq') >= 0) {
+                current_area = "newsfaq";
+            } else if(document.URL.indexOf('/rss') >= 0) {
+                current_area = "rss";
+            } else if(document.URL.indexOf('/lists') >= 0) {
+                current_area = "lists";
+            } else if(document.URL.indexOf('/bookmarklet') >= 0) {
+                current_area = "bookmarklet";
+            } else if(document.URL.indexOf('/dmca') >= 0) {
+                current_area = "dmca";
+            } else if(document.URL.indexOf('/newsnews') >= 0) {
+                current_area = "newsnews";
+            } else if(document.URL.indexOf('/issues') >= 0) {
+                current_area = "issues";
+            }
+
+        }
+
+        /*  covered areas:
+            front 
+        */
+        if("" == current_area) {
+            current_area = "front";
+        }
+
+        /*  covered areas:
+            unknown 
+        */
+        if("" == current_area) {
+            current_area = "front";
+        }
+
+        return current_area;
     }
 
     // ABANDONED, reason: stopped hijacking enter key keydown event
