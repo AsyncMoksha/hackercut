@@ -42,6 +42,23 @@ div.arrow-right {
 	/*width: 75%;*/
 }
 
+/* for the 1st page of "jobs" area */
+.main-table-show-jobs-page tr:nth-of-type(3n+3) td:first-of-type {
+	width: 1%;
+}
+
+.main-table-show-jobs-page tr:nth-of-type(3n+3) td:nth-of-type(2) {
+	width: 1%;
+}
+
+.main-table-show-jobs-page tr:nth-of-type(3n+3) td:nth-of-type(3) {
+	width: 2%;
+}
+
+.main-table-show-jobs-page tr:nth-of-type(3n+3) td:last-of-type {
+	/*width: 75%;*/
+}
+
 .white-popup {
   position: relative;
   background: #FFF;

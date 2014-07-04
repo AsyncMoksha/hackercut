@@ -1,5 +1,8 @@
 // + TODO: change layout according to current_area
 // + TODO: add "p" -> profile
+// - TODO: use class "topsel" to identify current area instead of color
+// - TODO: support "threads" page
+// - TODO: "a" & "c" should only work on normal areas (not "jobs", etc)
 
 $(document).ready(function() {
     const HN_BASE_URL = "https://news.ycombinator.com";
@@ -54,7 +57,8 @@ $(document).ready(function() {
     var current_area = get_current_area();
 
     // exclusion list
-    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0) {
+    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0) {
+        document.addEventListener('keypress', key_press_handler);
         return;
     } 
 
@@ -64,6 +68,15 @@ $(document).ready(function() {
             document.addEventListener('keypress', key_press_handler);
             return;
             break;
+
+        case 'jobs':
+            // it needs a special css class
+            $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table-jobs-first-page');
+
+            // add an extra <td> to the notice line so that its <tr> can have
+            // same amount of <td>s as other <tr>s after the insertions below
+            $('body table:first-of-type tr:nth-of-type(3) td table tr:nth-of-type(1)').prepend('<td></td>');
+        break;
 
         case 'show':
             // if on 1st page of "show" area (which has the notice line in the front)
@@ -84,6 +97,8 @@ $(document).ready(function() {
             $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table');
             break;
     }
+
+    debugger;
     
     var arrow_on = false;
     var additional_td_added = false;
@@ -231,11 +246,13 @@ $(document).ready(function() {
                 /* current author */
             case 97: // "a" key
                 if (arrow_on) {
-                    var author_node = $("td").filter(function() {
-                        return $.text([this]) == index + '.';
-                    }).parent().next().find("td:nth-of-type(2) a:first-of-type");
+                    if("front" == current_area || "new" == current_area || "show" == current_area || "ask" == current_area || "saved" == current_area || "submissions" == current_area) {
+                        var author_node = $("td").filter(function() {
+                            return $.text([this]) == index + '.';
+                        }).parent().next().find("td:nth-of-type(2) a:first-of-type");
 
-                    author_node.focus();
+                        author_node.focus();
+                    }
                 }
                 break;
 
@@ -311,6 +328,15 @@ $(document).ready(function() {
                 window.location.href = url_full;
             break;
 
+            /* go to "threads" page */
+            case 116: // "t" key
+                if(is_logged_in()) {
+                    var url_part = $('.pagetop a[href*="threads?"]').attr('href');
+                    var url_full = HN_BASE_URL + "/" + url_part;
+                    window.location.href = url_full;
+                }
+            break;
+
             default:
                 break;
         }
@@ -340,20 +366,28 @@ $(document).ready(function() {
     function get_initial_index_of_current_page() {
         var index_string;
 
-        // if not on 1st page of "show" area
-        if(document.URL.indexOf('/show') < 0) {
-            if (!additional_td_added) {
-                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:first-of-type').text();
-
-            } else {
-                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:nth-of-type(2)').text();
-            }
-        } else {
+        // if on 1st page of "show" area
+        if(document.URL.indexOf('/show') >= 0) {
             if (!additional_td_added) {
                 index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:nth-of-type(4) td:first-of-type').text();
 
             } else {
                 index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:nth-of-type(4) td:nth-of-type(2)').text();
+            }
+        // if on 1st page of "jobs" area
+        } else if(document.URL.indexOf('/jobs') >= 0) {
+            if (!additional_td_added) {
+                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:nth-of-type(3) td:first-of-type').text();
+
+            } else {
+                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:nth-of-type(3) td:nth-of-type(2)').text();
+            }
+        } else {
+            if (!additional_td_added) {
+                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:first-of-type').text();
+
+            } else {
+                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:nth-of-type(2)').text();
             }
         }
 
