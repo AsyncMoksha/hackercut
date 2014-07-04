@@ -38,19 +38,19 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">l</span>:' + '</td><td>' + ' go to login page' + '</td></tr>'
 
+    + '<tr><td>' + '<span class="left-side-instruction">w</span>:' + '</td><td>' + ' go to "Show HN" page' + '</td></tr>'
+
     + '</table>'
 
     + '<br />' + '<div class="foot-note">*please note that arrow navigation does not work on "comments" and "jobs" pages at this moment.</div>'
 
     + '</div>';
 
-    // doesn't work for "comments" and "jobs" pages at this point
-    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0 || document.URL.indexOf('/submitted') >= 0) {
+    // exclusion list
+    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0 || document.URL.indexOf('/submitted') >= 0 || document.URL.indexOf('/item') >= 0 || document.URL.indexOf('/show') >= 0) {
         document.addEventListener('keypress', key_press_handler);
         return;
-    } else if (document.URL.indexOf('/user?') >= 0 || document.URL.indexOf('/changepw') >= 0 || document.URL.indexOf('/item') >= 0) {
-        return;
-    }
+    } 
 
     var arrow_on = false;
     var additional_td_added = false;
@@ -79,7 +79,7 @@ $(document).ready(function() {
 
     function key_down_handler(event) {
         // avoid key conflicts in input fields
-        if ($(event.target).is("input")) {
+        if ($(event.target).is("input") || $(event.target).is("textarea") || $(event.target).is("select")) {
             return true;
         }
 
@@ -158,7 +158,7 @@ $(document).ready(function() {
 
     function key_press_handler(event) {
         // avoid key conflicts in input fields
-        if ($(event.target).is("input")) {
+        if ($(event.target).is("input") || $(event.target).is("textarea") || $(event.target).is("select")) {
             return true;
         }
 
@@ -258,6 +258,11 @@ $(document).ready(function() {
                 /* go to front page */
             case 104: // "h" key
                 window.location.href = "https://news.ycombinator.com/news";
+                break;
+
+               /* go to "Show HN" page */
+            case 119: // "w" key
+                window.location.href = "https://news.ycombinator.com/show";
                 break;
 
             case 108:
