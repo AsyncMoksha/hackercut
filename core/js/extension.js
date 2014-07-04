@@ -1,3 +1,6 @@
+// TODO: change layout according to current_area
+// TODO: add "p" -> profile
+
 $(document).ready(function() {
     const HN_BASE_URL = "https://news.ycombinator.com";
     const ITEMS_PER_PAGE = 30;
@@ -48,21 +51,42 @@ $(document).ready(function() {
 
     var current_area = get_current_area();
 
-    alert(current_area);
-
     // exclusion list
-    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0 || document.URL.indexOf('/item') >= 0 || document.URL.indexOf('/show') >= 0) {
-        document.addEventListener('keypress', key_press_handler);
+    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0) {
         return;
     } 
 
+    switch(current_area) {
+        // 'item' page doesn't need arrow navigation
+        case 'item':
+            document.addEventListener('keypress', key_press_handler);
+            return;
+            break;
+
+        case 'show':
+            // if on 1st page of "show" area (which has the notice line in the front)
+            if(document.URL.indexOf("/show") >= 0) {
+                // it needs a special css class
+                $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table-show-first-page');
+
+                // add an extra <td> to the notice line so that its <tr> can have
+                // same amount of <td>s as other <tr>s after the insertions below
+                $('body table:first-of-type tr:nth-of-type(3) td table tr:nth-of-type(2)').prepend('<td></td>');
+            } else {
+                $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table');
+            }
+        break;
+
+        default:
+            // add class in order for the layout in css
+            $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table');
+            break;
+    }
+    
     var arrow_on = false;
     var additional_td_added = false;
     var index = get_initial_index_of_current_page(); // global arrow index
     var current_page_max_index = get_current_page_max_index();
-
-    // add class in order for the layout in css
-    $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table');
 
     // add additional td before index to make space for pointer
     for (var i = 1; i <= current_page_max_index; ++i) {
@@ -70,6 +94,7 @@ $(document).ready(function() {
             return $.text([this]) == i + '.';
         }).before('<td></td>');
     }
+
     additional_td_added = true;
 
     // adjust the colspan of the space filler to compensate 
@@ -303,11 +328,22 @@ $(document).ready(function() {
 
     function get_initial_index_of_current_page() {
         var index_string;
-        if (!additional_td_added) {
-            index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:first-of-type').text();
 
+        // if not on 1st page of "show" area
+        if(document.URL.indexOf('/show') < 0) {
+            if (!additional_td_added) {
+                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:first-of-type').text();
+
+            } else {
+                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:nth-of-type(2)').text();
+            }
         } else {
-            index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:first-of-type td:nth-of-type(2)').text();
+            if (!additional_td_added) {
+                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:nth-of-type(4) td:first-of-type').text();
+
+            } else {
+                index_string = $('body table tr:nth-of-type(3) td:first-of-type table:first-of-type tr:nth-of-type(4) td:nth-of-type(2)').text();
+            }
         }
 
         index_string = index_string.replace('.', '');
@@ -320,6 +356,7 @@ $(document).ready(function() {
         return initial_index + (ITEMS_PER_PAGE - 1);
     }
 
+    // TODO: get "bookmarklet" (& alike) dynamically by truncating ".html"
     // identify which area we are in
     function get_current_area() {
         var current_area = "";
@@ -342,6 +379,7 @@ $(document).ready(function() {
         /*  covered areas:
             submissions
             saved
+            shownew
         */
         $('.pagetop font').each(function() {
             if('rgb(255, 255, 255)' == $(this).css('color')) {
@@ -353,11 +391,9 @@ $(document).ready(function() {
             }
         });
 
-        debugger;
-
         if("" == current_area) {
             if(document.URL.indexOf('/item') >= 0) {
-                current_area = "comment";
+                current_area = "item";
             } else if(document.URL.indexOf('/submit') >= 0) {
                 current_area = "submit";
             } else if(document.URL.indexOf('/changepw') >= 0) {
