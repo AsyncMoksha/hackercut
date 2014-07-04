@@ -47,7 +47,7 @@ $(document).ready(function() {
     + '</div>';
 
     // exclusion list
-    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0 || document.URL.indexOf('/submitted') >= 0 || document.URL.indexOf('/item') >= 0 || document.URL.indexOf('/show') >= 0) {
+    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/jobs') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0 || document.URL.indexOf('/item') >= 0 || document.URL.indexOf('/show') >= 0) {
         document.addEventListener('keypress', key_press_handler);
         return;
     } 
@@ -145,6 +145,9 @@ $(document).ready(function() {
                 // 2nd page is special
                 if ("news2" == next_page_link_part) {
                     next_page_link_part = "/" + next_page_link_part;
+                } else if (undefined == next_page_link_part) {
+                    // when no next page
+                    return true;
                 }
 
                 var next_page_link_full = HN_BASE_URL + next_page_link_part;
