@@ -71,12 +71,17 @@ $(document).ready(function() {
         break;
 
         case 'jobs':
-            // it needs a special css class
-            $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table-jobs-first-page');
+            // if on 1st page of "jobs" area (which has the notice line in the front)
+            if(document.URL.indexOf("/jobs") >= 0) {
+                // it needs a special css class
+                $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table-jobs-first-page');
 
-            // add an extra <td> to the notice line so that its <tr> can have
-            // same amount of <td>s as other <tr>s after the insertions below
-            $('body table:first-of-type tr:nth-of-type(3) td table tr:nth-of-type(1)').prepend('<td></td>');
+                // add an extra <td> to the notice line so that its <tr> can have
+                // same amount of <td>s as other <tr>s after the insertions below
+                $('body table:first-of-type tr:nth-of-type(3) td table tr:nth-of-type(1)').prepend('<td></td>');
+            } else {
+                $('body table:first-of-type tr:nth-of-type(3) td table').addClass('main-table');
+            }
         break;
 
         case 'show':
@@ -99,8 +104,6 @@ $(document).ready(function() {
             break;
     }
 
-    debugger;
-    
     var arrow_on = false;
     var additional_td_added = false;
     var index = get_initial_index_of_current_page(); // global arrow index
@@ -477,13 +480,6 @@ $(document).ready(function() {
 
         /*  covered areas:
             front 
-        */
-        if("" == current_area) {
-            current_area = "front";
-        }
-
-        /*  covered areas:
-            unknown 
         */
         if("" == current_area) {
             current_area = "front";
