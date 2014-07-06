@@ -328,9 +328,11 @@ $(document).ready(function() {
 
             /* go to my profile page */
             case 112: // "p" key
-                var url_part = $('.pagetop').eq(1).find('a:first-of-type').attr('href');
-                var url_full = HN_BASE_URL + "/" + url_part;
-                window.location.href = url_full;
+                if(is_logged_in()) {
+                    var url_part = $('.pagetop').eq(1).find('a:first-of-type').attr('href');
+                    var url_full = HN_BASE_URL + "/" + url_part;
+                    window.location.href = url_full;
+                }
             break;
 
             /* go to "threads" page */
