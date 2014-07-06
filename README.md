@@ -38,11 +38,11 @@ key press | function
 --- | ---
 <span style="color:#23A600">right arrow key</span> | next page
 <span style="color:#23A600">n</span> | "newest" page
-<span style="color:#23A600">t</span> | "threads" page
+<span style="color:#23A600">t</span> | "threads" page*
 <span style="color:#23A600">m</span> | "comments" page*
 <span style="color:#23A600">w</span> | "show hn" page
 <span style="color:#23A600">k</span> | "ask" page
-<span style="color:#23A600">j</span> | "jobs" page*
+<span style="color:#23A600">j</span> | "jobs" page
 <span style="color:#23A600">s</span> | "submit" page
 <span style="color:#23A600">h</span> | Hacker News front page
 <span style="color:#23A600">p</span> | "my profile" page
