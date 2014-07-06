@@ -1,12 +1,15 @@
-// + TODO: change layout according to current_area
-// + TODO: add "p" -> profile
-// - TODO: use class "topsel" to identify current area instead of color
-// - TODO: support "threads" page
-// - TODO: "a" & "c" should only work on normal areas (not "jobs", etc)
+// - TODO: support arrow navigation in "threads" & "comments" areas
 
 $(document).ready(function() {
     const HN_BASE_URL = "https://news.ycombinator.com";
     const ITEMS_PER_PAGE = 30;
+    // areas with author, command and vote
+    /*const*/ var NORMAL_AREAS = ["front"
+                                    , "new"
+                                    , "show"
+                                    , "ask"
+                                    , "saved"
+                                    , "submissions"]
 
     const instructions = '<div class="white-popup">' + 'Keyboard shortcuts powered by <font color="#FF6600">Hackercut</font><br />' + '<hr>' + '<table id="instruction-table">'
 
@@ -32,7 +35,7 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">n</span>:' + '</td><td>' + ' go to "newest" page' + '</td></tr>'
 
-    + '<tr><td>' + '<span class="left-side-instruction">t</span>:' + '</td><td>' + ' go to "threads" page' + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">t</span>:' + '</td><td>' + ' go to "threads" page*' + '</td></tr>'
 
     + '<tr><td>' + '<span class="left-side-instruction">m</span>:' + '</td><td>' + ' go to "comments" page*' + '</td></tr>'
 
@@ -40,7 +43,7 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">k</span>:' + '</td><td>' + ' go to "ask" page' + '</td></tr>'
 
-    + '<tr><td>' + '<span class="left-side-instruction">j</span>:' + '</td><td>' + ' go to "jobs" page*' + '</td></tr>'
+    + '<tr><td>' + '<span class="left-side-instruction">j</span>:' + '</td><td>' + ' go to "jobs" page' + '</td></tr>'
 
     + '<tr><td>' + '<span class="left-side-instruction">s</span>:' + '</td><td>' + ' go to "submit" page' + '</td></tr>'
 
@@ -52,24 +55,20 @@ $(document).ready(function() {
 
     + '</table>'
 
-    + '<br />' + '<div class="foot-note">*please note that arrow navigation does not work on "comments" and "jobs" pages at this moment.</div>'
+    + '<br />' + '<div class="foot-note">*please note that arrow navigation does not work on "comments" and "threads" pages at this moment.</div>'
 
     + '</div>';
 
     var current_area = get_current_area();
 
-    // exclusion list
-    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/threads') >= 0) {
-        document.addEventListener('keypress', key_press_handler);
-        return;
-    } 
-
     switch(current_area) {
-        // 'item' page doesn't need arrow navigation
+        // arrow navigation doesn't work in these areas:
+        case 'comments':
+        case 'threads':
         case 'item':
             document.addEventListener('keypress', key_press_handler);
             return;
-            break;
+        break;
 
         case 'jobs':
             // it needs a special css class
@@ -126,7 +125,7 @@ $(document).ready(function() {
     document.addEventListener('keypress', key_press_handler);
 
     function key_down_handler(event) {
-        // avoid key conflicts in input fields
+        // avoid key conflicts
         if ($(event.target).is("input") || $(event.target).is("textarea") || $(event.target).is("select")) {
             return true;
         }
@@ -208,7 +207,7 @@ $(document).ready(function() {
     }
 
     function key_press_handler(event) {
-        // avoid key conflicts in input fields
+        // avoid key conflicts
         if ($(event.target).is("input") || $(event.target).is("textarea") || $(event.target).is("select")) {
             return true;
         }
@@ -225,7 +224,8 @@ $(document).ready(function() {
                 /* upvote */
             case 118: // "v" key
             case 117: // "u" key
-                if (arrow_on) {
+                if (arrow_on
+                    && jQuery.inArray(current_area, NORMAL_AREAS) >= 0) {
                     if (is_logged_in()) {
                         // get a handle of the anchor
                         var vote_node = $("td").filter(function() {
@@ -245,22 +245,22 @@ $(document).ready(function() {
                 }
                 break;
 
-                /* current author */
+                /* focus on current author */
             case 97: // "a" key
-                if (arrow_on) {
-                    if("front" == current_area || "new" == current_area || "show" == current_area || "ask" == current_area || "saved" == current_area || "submissions" == current_area) {
-                        var author_node = $("td").filter(function() {
-                            return $.text([this]) == index + '.';
-                        }).parent().next().find("td:nth-of-type(2) a:first-of-type");
+                if (arrow_on 
+                    && jQuery.inArray(current_area, NORMAL_AREAS) >= 0) {
+                    var author_node = $("td").filter(function() {
+                        return $.text([this]) == index + '.';
+                    }).parent().next().find("td:nth-of-type(2) a:first-of-type");
 
-                        author_node.focus();
-                    }
+                    author_node.focus();
                 }
                 break;
 
-                /* current comment */
+                /* focus on current comment */
             case 99: // "c" key
-                if (arrow_on) {
+                if (arrow_on
+                    && jQuery.inArray(current_area, NORMAL_AREAS) >= 0) {
                     var comment_node = $("td").filter(function() {
                         return $.text([this]) == index + '.';
                     }).parent().next().find("td:nth-of-type(2) a:nth-of-type(2)");
