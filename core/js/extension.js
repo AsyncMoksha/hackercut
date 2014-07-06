@@ -32,6 +32,8 @@ $(document).ready(function() {
 
     + '<tr><td>' + '<span class="left-side-instruction">n</span>:' + '</td><td>' + ' go to "newest" page' + '</td></tr>'
 
+    + '<tr><td>' + '<span class="left-side-instruction">t</span>:' + '</td><td>' + ' go to "threads" page' + '</td></tr>'
+
     + '<tr><td>' + '<span class="left-side-instruction">m</span>:' + '</td><td>' + ' go to "comments" page*' + '</td></tr>'
 
     + '<tr><td>' + '<span class="left-side-instruction">w</span>:' + '</td><td>' + ' go to "show hn" page' + '</td></tr>'
@@ -57,7 +59,7 @@ $(document).ready(function() {
     var current_area = get_current_area();
 
     // exclusion list
-    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/threads') >= 0 || document.URL.indexOf('/saved') >= 0) {
+    if (document.URL.indexOf('/newcomments') >= 0 || document.URL.indexOf('/threads') >= 0) {
         document.addEventListener('keypress', key_press_handler);
         return;
     } 
