@@ -192,15 +192,16 @@ $(document).ready(function() {
                     return $.text([this]) == 'More';
                 }).find('a').attr('href');
 
+                // 2nd page no longer special - 9/14/14
                 // 2nd page is special
-                if ("news2" == next_page_link_part) {
-                    next_page_link_part = "/" + next_page_link_part;
-                } else if (undefined == next_page_link_part) {
-                    // when no next page
-                    return true;
-                }
+                // if ("news2" == next_page_link_part) {
+                //     next_page_link_part = "/" + next_page_link_part;
+                // } else if (undefined == next_page_link_part) {
+                //     // when no next page
+                //     return true;
+                // }
 
-                var next_page_link_full = HN_BASE_URL + next_page_link_part;
+                var next_page_link_full = HN_BASE_URL + '/' + next_page_link_part;
                 window.location.href = next_page_link_full;
                 break;
 
@@ -243,7 +244,7 @@ $(document).ready(function() {
                         var ping = new Image();
                         ping.src = vote_node.attr('href');
                     } else {
-                        window.location.href = "https://news.ycombinator.com/newslogin?whence=news";
+                        window.location.href = "https://news.ycombinator.com/login?whence=news";
                     }
                 }
                 break;
